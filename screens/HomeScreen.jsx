@@ -3,7 +3,7 @@ import { View, Text } from 'react-native'
 import { useSelector } from 'react-redux';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from "../components/home/Home"
-import Post from "../components/post/Post"
+import Post from "../components/create-post/createPost"
 import Notification from '../components/notificarion/Notification';
 import User from '../components/user/User';
 import Icon from 'react-native-vector-icons/Ionicons';

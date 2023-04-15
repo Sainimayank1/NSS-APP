@@ -6,6 +6,8 @@ import { StackActions } from '@react-navigation/native';
 import { setAllPosts } from '../../store/slices/postSlice';
 import axios from "axios"
 import { useDispatch } from 'react-redux';
+import { setToken } from '../../store/slices/authSlice';
+
 
 
 const Splash = () => {
@@ -13,8 +15,11 @@ const Splash = () => {
         const dispatch = useDispatch();
         setTimeout( async () => {
             const response  = await AsyncStorage.getItem("NSSTOKEN");
+            dispatch(setToken(response));
+
             if(response)
             {
+                
                 const data = await axios.get("https://nssjmieti.onrender.com/post/posts")
                 dispatch(setAllPosts(data.data.data))
                 navigate.navigate('home');
