@@ -22,11 +22,11 @@ const Splash = () => {
                 
                 const data = await axios.get("https://nssjmieti.onrender.com/post/posts")
                 dispatch(setAllPosts(data.data.data))
-                navigate.navigate('home');
+                navigate.dispatch(StackActions.replace('home'));
             }
             else
             {
-                navigate.navigate("login");
+                navigate.dispatch(StackActions.replace("login"));
             }
         }, 3000)
         return (
