@@ -37,13 +37,13 @@ const HomeScreen = () => {
                     color={focused ? "#303983" : "black"}
                     size={20} />
             }} />
-            <Tab.Screen name="Post" component={Post} options={{
+            <Tab.Screen name="Create-Post" component={Post} options={{
                 tabBarIcon: ({ color, size, focused }) => <Icon
                     name={focused ? "add-circle" : "add-circle-outline"}
                     color={focused ? "#303983" : "black"}
                     size={20} />
             }} />
-            <Tab.Screen name="Notification" component={Notification} options={{
+            <Tab.Screen name="Edit-Post" component={Notification} options={{
                 tabBarIcon: ({ color, size, focused }) => <Icon
                     name={focused ? "notifications" : "notifications-outline"}
                     color={focused ? "#303983" : "black"}

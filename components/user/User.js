@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { TouchableOpacity } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ChangeName from './ChangeName'
+import ChangePassword from './ChangePassword'
 
 const User = () => {
   const [isNameVisible , setNameVisible] = useState(false)
+  const [isPasswordVisible , setPasswordVisible] = useState(false)
   const { user, token } = useSelector((state) => { return state.auth; })
 
-  const handleName = () =>
-  {
-    setNameVisible(!isNameVisible)
-  }
+  
 
   return (
     <View style={style.main}>
@@ -22,7 +22,7 @@ const User = () => {
       </View>
       <View style={style.down}>
         <View style={style.first}>
-          <TouchableOpacity style={style.firstBtn} onPress={handleName}>
+          <TouchableOpacity style={style.firstBtn} onPress={()=>{setNameVisible(!isNameVisible)}}>
             <Text style={{color:"white",fontWeight:"bold"}}>Change Name</Text>
           </TouchableOpacity>
           <TouchableOpacity style={style.firstBtn}>
@@ -30,23 +30,17 @@ const User = () => {
           </TouchableOpacity>
         </View>
         <View style={style.second}>
-          <TouchableOpacity style={style.secondBtn}>
+          <TouchableOpacity style={style.secondBtn} onPress={()=>{setPasswordVisible(!isPasswordVisible)}}>
             <Text style={{color:"white",fontWeight:"bold"}}>Change Password</Text>
           </TouchableOpacity>
         </View>
-      </View>
-      {isNameVisible ? <View style={style.fullDisplay}>
-        <View style={style.sub}>
-        <View style={{ alignItems:"flex-end" , padding:10 , width:"100%"}}>
-        <TouchableOpacity  onPress={()=>setNameVisible(!isNameVisible)}>
-         <Icon name="user" size={30} color="black" />
+      </View> 
+      {/* Chage Name  */}
+      {isNameVisible ? <ChangeName isNameVisible={isNameVisible} setNameVisible={setNameVisible} /> : null}
 
-        </TouchableOpacity>
-        </View>
-          <TextInput placeholder='Change Name' style={{width:"80%"}}></TextInput>
-          <TouchableOpacity style={style.secondBtn}><Text style={{color:"white",fontWeight:"bold"}}>SUbmit</Text></TouchableOpacity>
-        </View>
-      </View> : null}
+      {/* Change password */}
+      {isPasswordVisible ? <ChangePassword  isPasswordVisible={isPasswordVisible} setPasswordVisible={setPasswordVisible}/> : null }
+
     </View>
   )
 }
@@ -106,22 +100,7 @@ const style = StyleSheet.create({
     backgroundColor:"#303983",
     margin:10,
   },
-  fullDisplay:{
-    zIndex:100,
-    position:"absolute",
-    width:"100%",
-    height:"100%",
-    backgroundColor:"rgba(0,0,0,0.7)",
-    alignItems:"center",
-    justifyContent:"center"
-  },
-  sub:{
-    width:"70%",
-    // height:"10%",
-    backgroundColor:"white",
-    alignItems:"center",
-    justifyContent:"center"
-  },  
+  
 })
 
 export default User

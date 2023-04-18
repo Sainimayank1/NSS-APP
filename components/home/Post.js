@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import moment from "moment";
 import { setAllPosts } from '../../store/slices/postSlice';
 import axios from "axios"
+import Comment from './Comment';
 
 const Post = ({ data }) => {
 
     const [isLike, setIslike] = useState(false);
+    const [isComment , setComment] = useState(false);
     const { user, token } = useSelector((state) => { return state.auth; })
     const dispatch = useDispatch();
 
@@ -82,8 +84,13 @@ const Post = ({ data }) => {
                     </TouchableOpacity>
                     <Text>{data.likes.length}</Text>
                 </View>
-                <View><Icon name="document-text-outline" color="black" size={20}></Icon></View>
+                <View>
+                <TouchableOpacity onPress={()=>setComment(!isComment)}>
+                <Icon name="document-text-outline" color="black" size={20}></Icon>
+                </TouchableOpacity>
+                </View>
             </View>
+            {isComment ? <Comment data={data} /> : null}
         </View>
     )
 }
