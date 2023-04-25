@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 
 const initail = {
-    posts:[]
+    posts:[],
 };
 
 const postSlice = createSlice({
@@ -18,3 +18,5 @@ const postSlice = createSlice({
   export default postSlice.reducer
 
   export const {setAllPosts} = postSlice.actions
+
+  

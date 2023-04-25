@@ -19,10 +19,13 @@ const Splash = () => {
 
             if(response)
             {
-                
-                const data = await axios.get("https://nssjmieti.onrender.com/post/posts")
-                dispatch(setAllPosts(data.data.data))
-                navigate.dispatch(StackActions.replace('home'));
+                try {
+                    navigate.dispatch(StackActions.replace('home'));
+                    const data = await axios.get("https://nssjmieti.onrender.com/post/posts")
+                    dispatch(setAllPosts(data.data.data))
+                } catch (error) {
+                    console.log(error)
+                }
             }
             else
             {

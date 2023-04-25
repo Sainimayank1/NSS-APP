@@ -78,7 +78,7 @@ const  Login =  () => {
                     await AsyncStorage.setItem('NSSTOKEN', response.data.maintoken);
                     dispatch(setLoginMessage(response.data.msg))
                     dispatch(setToken(response.data.maintoken))
-                    navigate.dispatch(StackActions.replace('home'))
+                    navigate.replace('register');
                 }
                 else
                     dispatch(setLoginError(response.data.errors))
