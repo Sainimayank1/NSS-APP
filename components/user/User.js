@@ -1,18 +1,22 @@
 import { View, Text, StyleSheet, Image } from 'react-native'
 import React, {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { setLogout } from '../../store/slices/authSlice'
 import { TouchableOpacity } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ChangeName from './ChangeName'
 import ChangePassword from './ChangePassword'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { StackActions, TabActions, useNavigation } from '@react-navigation/native'
 
 const User = () => {
   const [isNameVisible , setNameVisible] = useState(false)
+  const dispatch = useDispatch();
   const [isPasswordVisible , setPasswordVisible] = useState(false)
+  const navigate = useNavigation();
   const { user, token } = useSelector((state) => { return state.auth; })
 
-  
 
   return (
     <View style={style.main}>
@@ -32,6 +36,15 @@ const User = () => {
         <View style={style.second}>
           <TouchableOpacity style={style.secondBtn} onPress={()=>{setPasswordVisible(!isPasswordVisible)}}>
             <Text style={{color:"white",fontWeight:"bold"}}>Change Password</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={style.second}>
+          <TouchableOpacity style={style.secondBtn} onPress={()=>{
+              dispatch(setLogout());
+              AsyncStorage.removeItem("NSSTOKEN");
+              navigate.dispatch(StackActions.replace('login'))
+          }}>
+            <Text style={{color:"white",fontWeight:"bold"}}>Logout</Text>
           </TouchableOpacity>
         </View>
       </View> 

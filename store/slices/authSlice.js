@@ -65,10 +65,14 @@ const authSlice = createSlice({
       state.token = action.payload;
       state.user = decoded.user;
     },
+    setLogout(state,action){
+      state.token = "";
+      state.user = {};
+    }
   }
 })
 
 export default authSlice.reducer
-export const {setLoading , resetLoading , setLoginError , resetLoginError , setLoginMessage , resetLoginMessage  ,   resetRegisterError , setToken , setRegisterMessage , setRegisterError  , resetRegisterMessage } = authSlice.actions;
+export const {setLoading , resetLoading , setLoginError , resetLoginError , setLoginMessage , resetLoginMessage  ,   resetRegisterError , setToken , setRegisterMessage , setRegisterError  , resetRegisterMessage , setLogout} = authSlice.actions;
 
 

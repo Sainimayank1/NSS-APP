@@ -28,6 +28,19 @@ const  Login =  () => {
         setDetails({ ...details, email });
     }
 
+    useEffect(()=>
+    {
+        const doIt = async () => {
+            let resp = await AsyncStorage.getItem("NSSTOKEN");
+            if(resp)
+            {
+                dispatch(setToken(resp))
+                navigation.dispatch(StackActions.replace('home'))
+            }
+        }
+        doIt();
+    },[])
+
     const handlePassword = (password) => {
         if (!isChange)
             setChange(true);
@@ -78,7 +91,7 @@ const  Login =  () => {
                     await AsyncStorage.setItem('NSSTOKEN', response.data.maintoken);
                     dispatch(setLoginMessage(response.data.msg))
                     dispatch(setToken(response.data.maintoken))
-                    navigate.replace('register');
+                    navigation.dispatch(StackActions.replace('home'))
                 }
                 else
                     dispatch(setLoginError(response.data.errors))
@@ -113,7 +126,7 @@ const  Login =  () => {
 
                         </Icon> : null}
                     </View>
-                    <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
+                    <TouchableOpacity style={styles.btn} onPress={handleSubmit} disabled={loading ? true : false}>
                         {/* Submit */}
                         <Text style={{ color: "white" }}>{loading ? "...." : "Login"}</Text>
                     </TouchableOpacity>
@@ -165,6 +178,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         borderBottomLeftRadius: 3,
         flexDirection: "row",
+        // borderColor:"black",
+        // borderWidth:2,
         justifyContent: "space-between",
         alignItems: "center",
         borderBottomRightRadius: 3,
@@ -172,7 +187,11 @@ const styles = StyleSheet.create({
     inp: {
         padding: 0,
         fontSize: 15,
-        color: "black"
+        color: "black",
+        width:"100%",
+        height:"100%"
+        // borderColor:"black",
+        // borderWidth:2,
     },
     btn: {
         backgroundColor: "#303983",

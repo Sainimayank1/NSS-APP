@@ -78,19 +78,19 @@ const Post = ({ data }) => {
                 <Image source={{ uri: data.image.url }} style={style.img}></Image>
             </View>
             <View style={style.bottom}>
-                <View style={{ marginRight: 5, flexDirection: "row" , alignItems:"center" }}>
+                <View style={{ marginRight: 15, flexDirection: "row" , alignItems:"center" }}>
                     <TouchableOpacity onPress={handleLike}>
-                        <Icon name={isLike ? "heart" : "heart-outline"} color="black" size={25}></Icon>
+                        <Icon name={isLike ? "heart" : "heart-outline"} color="black" size={30}></Icon>
                     </TouchableOpacity>
                     <Text>{data.likes.length}</Text>
                 </View>
                 <View>
                 <TouchableOpacity onPress={()=>setComment(!isComment)}>
-                <Icon name="document-text-outline" color="black" size={20}></Icon>
+                <Icon name="document-text-outline" color="black" size={25}></Icon>
                 </TouchableOpacity>
                 </View>
             </View>
-            {isComment ? <Comment data={data} /> : null}
+            {isComment ? <Comment Data={data} /> : null}
         </View>
     )
 }
@@ -99,8 +99,8 @@ const style = StyleSheet.create({
     main: {
         flex: 1,
         padding: 20,
-        borderBottomColor: "gray",
-        borderBottomWidth: 2,
+        borderBottomColor: "#D3D3D3",
+        borderBottomWidth: 15,
         color: "black"
     },
     upper: {
@@ -112,8 +112,8 @@ const style = StyleSheet.create({
         alignItems: "center",
     },
     userImg: {
-        height: 30,
-        width: 30,
+        height: 35,
+        width: 35,
         borderRadius: 40
     },
     img: {
@@ -130,7 +130,7 @@ const style = StyleSheet.create({
     },
     name: {
         color: "black",
-        fontSize: 17,
+        fontSize: 20,
         marginHorizontal: 2
     }
 })
