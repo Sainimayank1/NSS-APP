@@ -66,7 +66,7 @@ const Comment = ({ Data }) => {
           comments.length > 0 ?
             comments.map((data) => {
               return (
-                <View style={{marginVertical:5,borderBottomColor:"grey",borderBottomWidth:1}}>
+                <View style={{marginVertical:5,borderBottomColor:"grey",borderBottomWidth:1}} key={data._id}>
                   <View style={{display:"flex" , flexDirection:"row" , alignItems:"center"}}>
                     <Image style={styles.img} source={data.url === "" ? require("../../assests/imges/user1.png") : { uri: data.url }}></Image>
                     <View><Text style={[{ color: "black" },styles.name]}>{data.userName}</Text></View>
