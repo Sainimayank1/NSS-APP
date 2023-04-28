@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initail = {
     posts:[],
-    comments:[],
+    userPosts:[],
 };
 
 const postSlice = createSlice({
@@ -13,14 +13,14 @@ const postSlice = createSlice({
       setAllPosts(state,action){
         state.posts = action.payload
       },
-      setComments(state,action){
-        state.comments = action.payload
+      setUserPosts(state,action){
+        state.userPosts = action.payload
       }
     }
   })
   
   export default postSlice.reducer
 
-  export const {setAllPosts,setComments} = postSlice.actions
+  export const {setAllPosts,setUserPosts} = postSlice.actions
 
   

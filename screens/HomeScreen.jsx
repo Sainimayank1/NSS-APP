@@ -45,7 +45,7 @@ const HomeScreen = () => {
             }} />
             <Tab.Screen name="Edit-Post" component={Notification} options={{
                 tabBarIcon: ({ color, size, focused }) => <Icon
-                    name={focused ? "notifications" : "notifications-outline"}
+                    name={focused ? "create" : "create-outline"}
                     color={focused ? "#303983" : "black"}
                     size={20} />
             }} />
