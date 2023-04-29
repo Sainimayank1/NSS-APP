@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from "../components/home/Home"
 import Post from "../components/create-post/createPost"
-import Notification from '../components/edit-post/EditPost';
 import User from '../components/user/User';
 import Icon from 'react-native-vector-icons/Ionicons';
+import EditScreen from "./EditScreen.js"
 
 const Tab = createBottomTabNavigator();
 
@@ -43,7 +43,7 @@ const HomeScreen = () => {
                     color={focused ? "#303983" : "black"}
                     size={20} />
             }} />
-            <Tab.Screen name="Edit-Post" component={Notification} options={{
+            <Tab.Screen name="Edit-Post" component={EditScreen} options={{
                 tabBarIcon: ({ color, size, focused }) => <Icon
                     name={focused ? "create" : "create-outline"}
                     color={focused ? "#303983" : "black"}

@@ -1,18 +1,21 @@
-import { View, Text, ActivityIndicator, SafeAreaView, StyleSheet, ScrollView, RefreshControl, Dimensions } from 'react-native'
+import { View, Text, ActivityIndicator, Alert, SafeAreaView, TouchableOpacity, StyleSheet, ScrollView, RefreshControl, Dimensions } from 'react-native'
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux'
 import { setLoading, resetLoading } from '../../store/slices/authSlice'
 import { setUserPosts } from '../../store/slices/postSlice';
 import Icon from 'react-native-vector-icons/Ionicons';
 import React, { useEffect, useState } from 'react'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import moment from "moment";
+import { useNavigation } from '@react-navigation/native'
 
 const h = Dimensions.get('screen').height;
 
 const Notification = () => {
+  const navigate = useNavigation();
   const dispatch = useDispatch();
   const [isRefresh, setRefresh] = useState(false);
-  const { user, loading } = useSelector((state) => { return state.auth; })
+  const { user, loading, token } = useSelector((state) => { return state.auth; })
   const { _id } = user;
   const { userPosts } = useSelector((state) => { return state.post; })
 
@@ -35,11 +38,50 @@ const Notification = () => {
     try {
       setRefresh(true)
       const response = await axios.get('https://nssjmieti.onrender.com/post/userAllPosts/' + _id)
-      console.log(response);
+      dispatch(setUserPosts(response.data.data))
       setRefresh(false)
     } catch (error) {
-      console.log(error)
+      console.log(error.response.data)
     }
+  }
+
+  const handleDelete = (id) => {
+    Alert.alert("Alert","Are you really want to delete post ?",
+      [
+        {
+          text: "Yes",
+          onPress: async () => {
+            dispatch(setLoading());
+            const config =
+            {
+              headers: {
+                Authorizaton: 'Bearer ' + token
+              }
+            }
+            try {
+              const response = await axios.post('https://nssjmieti.onrender.com/post/delete/' + id, config)
+              dispatch(resetLoading());
+              // Toast.show({
+              //   type: "error",
+              //   text1: response.data.msg
+              // })
+              getData()
+            } catch (error) {
+              dispatch(resetLoading());
+              console.log(error)
+            }
+          }
+        },
+        {
+          text:"No",
+          onPress:()=>{}
+        }
+      ])
+  }
+
+
+  const handlePopUp = () => {
+    navigate.navigate('edit-per-post')
   }
 
   return (
@@ -47,42 +89,43 @@ const Notification = () => {
 
       {
         loading ?
-          <View style={{ height: "90%", display: "flex", alignContent: "center", justifyContent: "center", borderColor: "black", borderWidth: 2 }}>
+          <View style={{ height: "100%", display: "flex", alignContent: "center", justifyContent: "center" }}>
             <ActivityIndicator size={60} color="#303983" />
           </View>
           :
           <ScrollView refreshControl={<RefreshControl
             refreshing={isRefresh} onRefresh={getData}
           />}>
+            <Toast />
             <View style={styles.main}>
               {
                 userPosts.map((data) => {
                   return <View style={styles.subMain} key={data._id}>
                     <View style={styles.first}>
-                      <Text style={{color:"black",fontSize:20}}>
+                      <Text style={{ color: "black", fontSize: 20, fontWeight: "bold" }}>
                         {
                           data.title
                         }
                       </Text>
-                        <Text style={{color:"black",fontSize:15}}>
-                          Published:{moment(data.createdAt).fromNow()}
-                        </Text>
+                      <Text style={{ fontSize: 15 }}>
+                        Published:{moment(data.createdAt).fromNow()}
+                      </Text>
                     </View>
                     <View style={styles.second}>
-                      <View style={styles.icon}>
+                      <TouchableOpacity style={styles.icon} onPress={handlePopUp}>
                         <Icon
                           name="create-outline"
                           color={"black"}
                           size={25}>
                         </Icon>
-                      </View>
-                      <View style={styles.icon}>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.icon} onPress={() => handleDelete(data._id)}>
                         <Icon
                           name="trash-outline"
                           color={"black"}
                           size={25}>
                         </Icon>
-                      </View>
+                      </TouchableOpacity>
                     </View>
                   </View>
                 })
@@ -99,9 +142,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     height: h,
     width: "100%",
-    // borderColor: "black",
-    marginVertical:20
-    // borderWidth: 4
+    marginVertical: 20
   },
   subMain: {
     minHeight: "5%",
@@ -114,17 +155,17 @@ const styles = StyleSheet.create({
     color: "black",
     flexDirection: "row"
   },
-  first:{
-    display:"flex",
-    flexDirection:"column"
+  first: {
+    display: "flex",
+    flexDirection: "column"
   },
   second: {
     display: "flex",
     alignItems: "center",
     flexDirection: "row",
   },
-  icon:{
-    marginHorizontal:5
+  icon: {
+    marginHorizontal: 5
   }
 })
 

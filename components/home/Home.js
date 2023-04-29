@@ -46,7 +46,7 @@ const Home = () => {
       <Header />
       {
         loading ?
-          <View style={{ height: "90%", display: "flex", alignContent: "center", justifyContent: "center", borderColor: "black", borderWidth: 2 }}>
+          <View style={{ height: "90%", display: "flex", alignContent: "center", justifyContent: "center"}}>
             <ActivityIndicator size={60} color="#303983" />
           </View>
           :

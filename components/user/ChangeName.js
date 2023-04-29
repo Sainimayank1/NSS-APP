@@ -2,7 +2,7 @@ import { StyleSheet, Text, View , TextInput } from 'react-native'
 import React,{useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TouchableOpacity } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { setLoading, resetLoading , setToken,} from '../../store/slices/authSlice'
 import axios from "axios"
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
@@ -56,7 +56,7 @@ const ChangeName = ({isNameVisible , setNameVisible}) => {
     <View style={{ padding:10 , width:"100%" , flexDirection:"row" , justifyContent:"space-between"}}>
     <Text style={{fontSize:20 , color:"black" , fontWeight:"bold"}}>Change Name</Text>
     <TouchableOpacity  onPress={()=>setNameVisible(!isNameVisible)}>
-     <Icon name="user" size={30} color="black" />
+     <Icon name="close-outline" size={35} color="black" />
     </TouchableOpacity>
     </View>
       <TextInput placeholder='Change Name' onChangeText={handleName} style={{width:"80%"}} value={name}></TextInput>
