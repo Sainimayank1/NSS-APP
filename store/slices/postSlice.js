@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const initail = {
     posts:[],
     userPosts:[],
+    editPostId:"",
 };
 
 const postSlice = createSlice({
@@ -15,12 +16,15 @@ const postSlice = createSlice({
       },
       setUserPosts(state,action){
         state.userPosts = action.payload
-      }
+      },
+      setEditPostId(state,action){
+        state.editPostId = action.payload
+      },
     }
   })
   
   export default postSlice.reducer
 
-  export const {setAllPosts,setUserPosts} = postSlice.actions
+  export const {setAllPosts,setUserPosts ,setEditPostId} = postSlice.actions
 
   

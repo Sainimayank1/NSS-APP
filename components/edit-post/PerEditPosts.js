@@ -1,14 +1,102 @@
-import { Text, StyleSheet, View } from 'react-native'
-import React, { Component } from 'react'
+import { Text, StyleSheet, View , ScrollView , TextInput,TouchableOpacity} from 'react-native'
+import React, { Component , useState } from 'react'
 
-export default class PerEditPosts extends Component {
-  render() {
-    return (
-      <View>
-        <Text>PerEditPosts</Text>
-      </View>
-    )
+export default function PerEditPosts() {
+  const [title,setTitle]=useState("");
+  const [desc , setDesc] = useState("");
+
+  const handleDesc = (text) =>
+  {
+    setDesc(text);
   }
+
+  const handleTitle = (text) =>
+  {
+    setTitle(text);
+  }
+
+  const handleSubmit = () =>
+  {
+    console.log(title,desc)
+  }
+    return (
+      <ScrollView>
+    <View style={style.main}>
+      <View style={style.textTitle}>
+        <Text style={style.text}>Title</Text>
+        <TextInput placeholder='Enter tittle' style={style.input} placeholderTextColor="black" onChangeText={handleTitle}></TextInput>
+      </View>
+      <View style={style.textTitle}>
+        <Text style={style.text}>
+          Discription
+        </Text>
+        <TextInput placeholder='Enter Discription' style={style.input} placeholderTextColor="black" multiline onChangeText={handleDesc}></TextInput>
+      </View>
+      <View style={style.submitBox}>
+      <TouchableOpacity style={style.submitBtn} onPress={handleSubmit}><Text style={{color:"white", fontWeight:"bold" , fontSize:18}}>Edit Post</Text></TouchableOpacity>
+      </View>
+    </View>
+  </ScrollView>
+    )
 }
 
-const styles = StyleSheet.create({})
+const style = StyleSheet.create({
+  main:{
+    flex:1,
+    // backgroundColor:"red",
+    alignItems:"center",
+    padding:20
+  },
+  textTitle:{
+    // backgroundColor:"green",
+    width:"100%",
+    marginVertical:20
+  },
+  text:{
+    fontSize:30,
+    fontWeight:"bold",
+    color:"black"
+  },
+  input:{
+    borderColor:"grey",
+    borderBottomWidth:1,
+    marginTop:5,
+    fontSize:15,
+    color:"black",
+    alignItems:"flex-start",
+    justifyContent:"flex-start"
+  },
+  btnBox:{
+    width:"100%",
+    flexDirection:"row",
+    alignItems:"center",
+    justifyContent:"space-around"
+  },
+  btn:{
+    // backgroundColor:"rbga(144,155,100,100)",
+    // opacity:0.1,
+    borderColor:"grey",
+    borderWidth:1,
+    width:"40%",
+    margin:10,
+    padding:10,
+    borderRadius:50,
+    color:"white",
+    alignItems:"center",
+    justifyContent:"center"
+  },
+  submitBox:{
+    width:"100%",
+    alignItems:"center",
+    justifyContent:"center",
+    margin:20,
+  },
+  submitBtn:{
+    backgroundColor: "#303983",
+    width:"80%",
+    borderRadius:50,
+    padding:10,
+    alignItems:"center",
+    justifyContent:"center"
+  }
+})

@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import moment from "moment";
 import { useNavigation } from '@react-navigation/native'
+import {setEditPostId} from "../../store/slices/postSlice"
 
 const h = Dimensions.get('screen').height;
 
@@ -80,7 +81,9 @@ const Notification = () => {
   }
 
 
-  const handlePopUp = () => {
+  const handlePopUp = (_id) => {
+    console.log(_id)
+    dispatch(setEditPostId(_id))
     navigate.navigate('edit-per-post')
   }
 
@@ -112,7 +115,7 @@ const Notification = () => {
                       </Text>
                     </View>
                     <View style={styles.second}>
-                      <TouchableOpacity style={styles.icon} onPress={handlePopUp}>
+                      <TouchableOpacity style={styles.icon} onPress={handlePopUp(data._id)}>
                         <Icon
                           name="create-outline"
                           color={"black"}
