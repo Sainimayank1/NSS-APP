@@ -33,7 +33,7 @@ const Notification = () => {
       }
     }
     DoIt();
-  }, [])
+  },[])
 
   const getData = async () => {
     try {
@@ -82,7 +82,7 @@ const Notification = () => {
 
 
   const handlePopUp = (_id) => {
-    console.log(_id)
+
     dispatch(setEditPostId(_id))
     navigate.navigate('edit-per-post')
   }
@@ -115,7 +115,7 @@ const Notification = () => {
                       </Text>
                     </View>
                     <View style={styles.second}>
-                      <TouchableOpacity style={styles.icon} onPress={handlePopUp(data._id)}>
+                      <TouchableOpacity style={styles.icon} onPress={()=>handlePopUp(data._id)}>
                         <Icon
                           name="create-outline"
                           color={"black"}

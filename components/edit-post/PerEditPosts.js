@@ -1,9 +1,16 @@
 import { Text, StyleSheet, View , ScrollView , TextInput,TouchableOpacity} from 'react-native'
 import React, { Component , useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { resetLoading, setLoading } from '../../store/slices/authSlice';
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import axios from 'axios';
 
 export default function PerEditPosts() {
+  const dispatch = useDispatch();
   const [title,setTitle]=useState("");
   const [desc , setDesc] = useState("");
+  const {editPostId } = useSelector((state) => { return state.post; })
+  const { user, loading, token } = useSelector((state) => { return state.auth; })
 
   const handleDesc = (text) =>
   {
@@ -15,12 +22,36 @@ export default function PerEditPosts() {
     setTitle(text);
   }
 
-  const handleSubmit = () =>
+  const handleSubmit = async () =>
   {
-    console.log(title,desc)
+        const values = {title:title,description:desc,id:editPostId} 
+        const data = values;
+        dispatch(setLoading())
+        const config =
+        {
+            headers: {
+                Authorizaton: 'Bearer ' + token
+            }
+        }
+        try {
+            const response = await axios.post('https://nssjmieti.onrender.com/post/update',data, config)
+            Toast.show({
+                type: "success",
+                text1: response.data.msg
+              })
+            dispatch(resetLoading())
+          } catch (error) {
+          dispatch(resetLoading())
+          Toast.show({
+            type: "error",
+            text1: error.response.data.errors.errors[0].msg
+          })
+        }
+
   }
     return (
       <ScrollView>
+      <Toast/>
     <View style={style.main}>
       <View style={style.textTitle}>
         <Text style={style.text}>Title</Text>
@@ -33,7 +64,7 @@ export default function PerEditPosts() {
         <TextInput placeholder='Enter Discription' style={style.input} placeholderTextColor="black" multiline onChangeText={handleDesc}></TextInput>
       </View>
       <View style={style.submitBox}>
-      <TouchableOpacity style={style.submitBtn} onPress={handleSubmit}><Text style={{color:"white", fontWeight:"bold" , fontSize:18}}>Edit Post</Text></TouchableOpacity>
+      <TouchableOpacity style={style.submitBtn} onPress={handleSubmit}><Text style={{color:"white", fontWeight:"bold" , fontSize:18}}>{loading ? "....." : "Edit Post"}</Text></TouchableOpacity>
       </View>
     </View>
   </ScrollView>
