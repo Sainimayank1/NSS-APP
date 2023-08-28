@@ -82,7 +82,7 @@ const Post = ({ data }) => {
                     <TouchableOpacity onPress={handleLike}>
                         <Icon name={isLike ? "heart" : "heart-outline"} color="black" size={30}></Icon>
                     </TouchableOpacity>
-                    <Text>{data.likes.length}</Text>
+                    <Text style={{color:"black"}}>{data.likes.length}</Text>
                 </View>
                 <View>
                 <TouchableOpacity onPress={()=>setComment(!isComment)}>

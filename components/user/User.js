@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Image } from 'react-native'
 import React, {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { setLogout } from '../../store/slices/authSlice'
 import { TouchableOpacity } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
@@ -17,9 +18,19 @@ const User = () => {
   const navigate = useNavigation();
   const { user, token } = useSelector((state) => { return state.auth; })
 
+  const handleNotActive = () =>
+  {
+    Toast.show({
+      type: "error",
+      text1: "Sorry these feature is currently not available ",
+      text2:"Please use Web-version "
+    })
+  }
+
 
   return (
     <View style={style.main}>
+      <Toast />
       <View style={style.upper}>
         <Image style={style.img} source={user.url === "" ? require("../../assests/imges/user1.png") : { uri: user.url }}></Image>
         <Text style={style.name}>Hello , {user.name}</Text>
@@ -29,17 +40,15 @@ const User = () => {
           <TouchableOpacity style={style.firstBtn} onPress={()=>{setNameVisible(!isNameVisible)}}>
             <Text style={{color:"white",fontWeight:"bold"}}>Change Name</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={style.firstBtn}>
+          <TouchableOpacity style={style.firstBtn} onPress={()=>handleNotActive()}>
             <Text style={{color:"white",fontWeight:"bold"}}>Change Image</Text>
           </TouchableOpacity>
         </View>
-        <View style={style.second}>
-          <TouchableOpacity style={style.secondBtn} onPress={()=>{setPasswordVisible(!isPasswordVisible)}}>
+        <View  style={style.first}>
+          <TouchableOpacity style={style.firstBtn} onPress={()=>{setPasswordVisible(!isPasswordVisible)}}>
             <Text style={{color:"white",fontWeight:"bold"}}>Change Password</Text>
           </TouchableOpacity>
-        </View>
-        <View style={style.second}>
-          <TouchableOpacity style={style.secondBtn} onPress={()=>{
+          <TouchableOpacity style={style.logout} onPress={()=>{
               dispatch(setLogout());
               AsyncStorage.removeItem("NSSTOKEN");
               navigate.dispatch(StackActions.replace('login'))
@@ -104,15 +113,15 @@ const style = StyleSheet.create({
     alignItems:"center",
     justifyContent:"center"
   },
-  secondBtn:{
-    width:"80%",
-    backgroundColor:"#303983",
+  logout:{
+    backgroundColor:"red",
+    width:"40%",
     padding:10,
     alignItems:"center",
     justifyContent:"center",
-    backgroundColor:"#303983",
+    // backgroundColor:"#303983",
     margin:10,
-  },
+  }
   
 })
 

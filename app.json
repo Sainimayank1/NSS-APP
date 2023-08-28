@@ -1,4 +1,11 @@
 {
   "name": "Nss_jmieti",
-  "displayName": "Nss jmieti"
+  "displayName": "Nss jmieti",
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "543d988e-b874-49ec-9bcf-52b41f04fe96"
+      }
+    }
+  }
 }

@@ -57,8 +57,8 @@ const ChangePassword = ({ isPasswordVisible, setPasswordVisible }) => {
                         <Icon name="close-outline" size={35} color="black" />
                     </TouchableOpacity>
                 </View>
-                <TextInput placeholder='Enter current Password' onChangeText={(text) => setPassword(text)} style={{ width: "80%" }} secureTextEntry={true} value={password}></TextInput>
-                <TextInput placeholder='Enter New Password' onChangeText={(text) => setCPassword(text)} style={{ width: "80%" }} secureTextEntry={true} value={cpassword}></TextInput>
+                <TextInput placeholder='Enter current Password' onChangeText={(text) => setPassword(text)} style={{ width: "80%" , color:"red" }}  value={password}></TextInput>
+                <TextInput placeholder='Enter New Password' onChangeText={(text) => setCPassword(text)} style={{ width: "80%" , color:"grey" }}  value={cpassword}></TextInput>
                 <TouchableOpacity style={style.secondBtn}><Text style={{ color: "white", fontWeight: "bold" }} onPress={handleSubmit}>{loading ? "....." : "Submit"}</Text></TouchableOpacity>
             </View>
         </View>

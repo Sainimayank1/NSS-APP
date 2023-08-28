@@ -15,19 +15,19 @@ const Splash = () => {
         const dispatch = useDispatch();
         setTimeout( async () => {
             const response  = await AsyncStorage.getItem("NSSTOKEN");
-            dispatch(setToken(response));
-
+            
             if(response)
             {
+                dispatch(setToken(response));
                 try {
                     navigate.dispatch(StackActions.replace('home'));
                     const data = await axios.get("https://nssjmieti.onrender.com/post/posts")
                     dispatch(setAllPosts(data.data.data))
                 } catch (error) {
-                    console.log(error)
+                    // console.log(error)
                 }
             }
-            else
+            if(response == null)
             {
                 navigate.dispatch(StackActions.replace("login"));
             }
@@ -37,11 +37,12 @@ const Splash = () => {
                 <View style={styles.main}>
                     <View style={{ alignItems: "center", justifyContent: "center" }}>
                         <Image style={styles.img} source={require("../../assests/imges/nss.png")}></Image>
-                        <Text style={{ fontSize: 16, fontWeight: "bold" }}>Welcome To NSS JMIETI</Text>
+                        <Text style={{ fontSize: 16, fontWeight: "bold" ,color:"black"}}>Welcome To NSS JMIETI</Text>
                     </View>
                 </View>
                 <View style={styles.sub_main}>
-                    <Text >Made By Mayank</Text>
+                    <Text style={{ color:"black"}}>Made By Mayank</Text>
+                    <Text style={{color:"black"}}>Beta Version : 1.0.2</Text>
 
                 </View>
             </>

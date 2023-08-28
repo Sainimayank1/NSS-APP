@@ -86,8 +86,10 @@ const  Login =  () => {
             }
             dispatch(setLoading())
             try {
+        
                 const response = await axios.post('https://nssjmieti.onrender.com/login', details, config)
                 if (response) {
+                    
                     await AsyncStorage.setItem('NSSTOKEN', response.data.maintoken);
                     dispatch(setLoginMessage(response.data.msg))
                     dispatch(setToken(response.data.maintoken))
@@ -148,8 +150,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        borderWidth: 2,
-        borderColor: "black",
+        // borderWidth: 2,
+        // borderColor: "black",
     },
     sub: {
         flex: 1,

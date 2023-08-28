@@ -17,6 +17,7 @@ const Header = () => {
 
 const style = StyleSheet.create({
     main:{
+        zIndex:10,
         backgroundColor:"#303983",
         width:"100%",
         height:70,

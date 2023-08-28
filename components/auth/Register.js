@@ -47,7 +47,7 @@ function Register() {
                 text1: RegisterMessage
             })
             dispatch(resetRegisterMessage())
-            navigate.navigate('login')
+            // navigate.navigate('login')
         }
     }, [RegisterMessage])
 
